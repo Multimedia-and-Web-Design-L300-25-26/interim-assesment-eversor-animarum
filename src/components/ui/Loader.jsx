@@ -1,11 +1,6 @@
-import React from 'react';
 import Logo from './Logo';
 
-interface LoaderProps {
-    fullScreen?: boolean;
-}
-
-const Loader: React.FC<LoaderProps> = ({ fullScreen = true }) => {
+const Loader = ({ fullScreen = true }) => {
     const content = (
         <div className="flex items-center justify-center">
             <div className="animate-[coinbase-pulse_1.6s_ease-in-out_infinite]">

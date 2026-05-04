@@ -13,6 +13,7 @@ export default function SignUp() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(false);
   const [submitting, setSubmitting] = useState(false);
 
   const { login } = useAuth();
@@ -21,6 +22,7 @@ export default function SignUp() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(null);
+    setSuccess(false);
 
     // Client-side validation before hitting the backend
     if (!name || !email || !password || !confirmPassword) {
@@ -45,7 +47,8 @@ export default function SignUp() {
 
       // Auto-login after successful registration — stores token and redirects home
       login(response.data);
-      navigate("/");
+      setSuccess(true);
+      setTimeout(() => navigate("/"), 900);
     } catch (err) {
       setError(
         err.response?.data?.message || "Registration failed. Please try again."
@@ -84,6 +87,15 @@ export default function SignUp() {
           <div className="mb-6">
             <DemoNotice />
           </div>
+
+          {success && (
+            <div
+              role="status"
+              className="mb-6 text-sm text-green-700 bg-green-50 border border-green-200 p-3 rounded-lg"
+            >
+              Account created successfully. Redirecting...
+            </div>
+          )}
 
           <form onSubmit={handleSubmit} className="space-y-4">
             {/* Name field — required for backend registration */}

@@ -3,30 +3,30 @@
 // Provides login/logout functions and the current user to every component
 // without having to pass props manually through every level.
 
-import { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useContext, useState } from "react";
 import { api } from "../lib/api";
 
 const AuthContext = createContext(null);
 
+const getStoredUser = () => {
+  const storedUser = localStorage.getItem("user");
+  if (!storedUser) return null;
+
+  try {
+    return JSON.parse(storedUser);
+  } catch {
+    localStorage.removeItem("user");
+    localStorage.removeItem("token");
+    return null;
+  }
+};
+
 export function AuthProvider({ children }) {
   // user: null when logged out, or { _id, name, email, token } when logged in
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(getStoredUser);
 
-  // loading: true while we check localStorage on first page load (prevents flash-redirect)
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const storedUser = localStorage.getItem("user");
-    if (storedUser) {
-      try {
-        setUser(JSON.parse(storedUser));
-      } catch {
-        localStorage.removeItem("user");
-        localStorage.removeItem("token");
-      }
-    }
-    setLoading(false);
-  }, []);
+  // Kept in context so protected routes can share one shape.
+  const loading = false;
 
   /**
    * login — called after a successful /api/login or /api/register response.

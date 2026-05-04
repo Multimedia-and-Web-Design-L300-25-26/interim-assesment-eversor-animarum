@@ -1,6 +1,6 @@
 // lib/api.js — Axios instance configured to talk to our backend API
 //
-// In development (pnpm dev):   uses http://localhost:5001/api
+// In development (npm run dev): uses http://localhost:5001/api
 // In production (Netlify):     uses VITE_API_URL environment variable
 //                              Set this in Netlify → Site settings → Environment variables
 

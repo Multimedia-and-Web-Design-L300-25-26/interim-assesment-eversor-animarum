@@ -3,8 +3,6 @@ import HeroSection from "../components/crypto/HeroSection";
 import CryptoTickerSection from "../components/crypto/CryptoTickerSection";
 import GridSection from "../components/crypto/GridSection";
 import Footer from "../components/layout/Footer";
-import LearnMoreSection from "../components/crypto/LearnMoreSection";
-import HomeSignUpSection from "../components/crypto/HomeSignUpSection";
 
 /**
  * Home page

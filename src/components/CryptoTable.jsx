@@ -1,10 +1,4 @@
-import React, {
-  useState,
-  useEffect,
-  useLayoutEffect,
-  useRef,
-  useCallback,
-} from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 
 const tabs = ["Tradable", "Top gainers", "New on Coinbase"];
 const POLL_MS = 3000;
@@ -99,24 +93,10 @@ const ArrowUp = () => (
 );
 
 const AnimatedPrice = ({ value, dir }) => {
-  const prevRef = useRef(value);
-  const prevValue = prevRef.current;
-
-  useLayoutEffect(() => {
-    prevRef.current = value;
-  });
-
-  const chars = value.split("");
-  const maxLen = Math.max(chars.length, prevValue.length);
-  const paddedNew = value.padStart(maxLen, " ").split("");
-  const paddedPrev = prevValue.padStart(maxLen, " ").split("");
-
   return (
     <span className="inline-flex tabular-nums text-base leading-[1em] font-normal text-white">
-      {paddedNew.map((char, i) => {
-        const changed = char !== paddedPrev[i];
-        const animClass =
-          changed && dir ? (dir === "up" ? "flip-up" : "flip-down") : "";
+      {value.split("").map((char, i) => {
+        const animClass = dir ? (dir === "up" ? "flip-up" : "flip-down") : "";
         return (
           <span
             key={`${i}-${char}`}

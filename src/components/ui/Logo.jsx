@@ -1,11 +1,4 @@
-import React from 'react';
-
-interface LogoProps {
-  height?: number;
-  className?: string;
-}
-
-const Logo: React.FC<LogoProps> = ({ height = 28, className = '' }) => (
+const Logo = ({ height = 28, className = '' }) => (
   <img
     src="https://static-assets.coinbase.com/ui-infra/illustration/v1/pictogram/svg/light/coinbaseLogoNavigation-4.svg"
     alt="Coinbase"

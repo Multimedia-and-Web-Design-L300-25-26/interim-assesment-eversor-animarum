@@ -11,6 +11,7 @@ const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(false);
   const [submitting, setSubmitting] = useState(false);
 
   const { login } = useAuth();
@@ -19,6 +20,7 @@ const SignIn = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(null);
+    setSuccess(false);
 
     // Basic client-side validation
     if (!email || !password) {
@@ -36,9 +38,10 @@ const SignIn = () => {
 
       // Store the user + token in context and localStorage
       login(response.data);
+      setSuccess(true);
 
-      // Redirect to the home page on success
-      navigate("/");
+      // Briefly show success feedback before redirecting home
+      setTimeout(() => navigate("/"), 900);
     } catch (err) {
       setError(
         err.response?.data?.message || "Login failed. Please check your credentials."
@@ -74,6 +77,15 @@ const SignIn = () => {
           <h1 className="text-3xl font-semibold text-center mb-6 text-gray-900">
             Sign in
           </h1>
+
+          {success && (
+            <div
+              role="status"
+              className="mb-6 text-sm text-green-700 bg-green-50 border border-green-200 p-3 rounded-lg"
+            >
+              Signed in successfully. Redirecting...
+            </div>
+          )}
 
           {/* Demo password warning — reusable component shared with /signup */}
           <div className="mb-6">

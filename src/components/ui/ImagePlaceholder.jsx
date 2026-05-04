@@ -1,5 +1,3 @@
-import React from "react";
-
 const ImagePlaceholder = ({
   label = "Image",
   aspectRatio = "4/3",
